@@ -1,0 +1,66 @@
+#
+# This dataset has been compiled from examples found at 
+#   http://www.inf.ed.ac.uk/teaching/courses/masws/Coding/build/html/sparql.html
+# 
+
+
+@prefix : <http://inf.ed.ac.uk/examples#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dbp: <http://dbpedia.org/property/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rel: <http://purl.org/vocab/relationship>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# define anumber of people
+:ehk a foaf:Person;
+     foaf:family_name "Klein";
+     foaf:givenname "Ewan";
+     foaf:homepage <http://homepages.inf.ed.ac.uk/ewan/>,
+                   <http://ltg.inf.ed.ac.uk/~ewan/>;
+
+     foaf:knows [ a foaf:Person;
+             rdfs:seeAlso <http://www.ibiblio.org/hhalpin/foaf.rdf>;
+             foaf:mbox_sha1sum "c5e75a0dd882184416c8680f5c402a261314bb79";
+             foaf:name "Harry Halpin"];
+
+     foaf:mbox_sha1sum "e9403c7f851a1dfb73ef6821cc3a0f1f20ea7dea";
+     foaf:name "Ewan Klein";
+     foaf:img <http://homepages.inf.ed.ac.uk/ewan/images/ehk.png> .
+
+:stu foaf:knows :bea ;
+     foaf:name "Stuart" .
+:bea foaf:knows :amy ;
+     foaf:name "Beatrice" .
+:amy foaf:name "Amy" .
+
+
+# and cafes they love
+:ebagel dc:title "Elephant and Bagel" .
+:ebagel dbp:locatedIn :central .
+:ebagel :rating "4"^^xsd:decimal . 
+:ebagel :lovedBy :bea .
+:ebagel :lovedBy :amy .
+
+:aroast dc:title "Artisan Roast" .
+:aroast dbp:locatedIn :eastEnd .
+:aroast :rating "5"^^xsd:decimal . 
+:aroast :lovedBy :stu .
+:aroast :lovedBy :rod .
+
+:pyard dc:title "Peter's Yard" .
+:pyard dbp:locatedIn :central .
+:pyard :rating "4"^^xsd:decimal . 
+:pyard :lovedBy :amy .
+
+:hacraft dc:title "Himalaya Art & Craft" .
+:hacraft dbp:locatedIn :southSide .
+:hacraft :rating "3"^^xsd:decimal . 
+:hacraft :lovedBy :rod .
+
+:vittoria dc:title "Vittoria" .
+:vittoria dbp:locatedIn :central .
+:vittoria :rating "4"^^xsd:decimal . 
+:vittoria :lovedBy :stu .
+:vittoria :hasCuisine :italian .
