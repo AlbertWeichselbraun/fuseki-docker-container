@@ -16,11 +16,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Compute short SHA
-        id: sha
-        run: echo "short_sha=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+      - name: Compute image information
+        id: image
+        run: | 
+          echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT" 
+          echo "short_sha=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -43,5 +45,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/jena-fuseki:latest
-            ghcr.io/${{ github.repository_owner }}/jena-fuseki:${{ steps.sha.outputs.short_sha }}
+            ghcr.io/${{ steps.image.outputs.owner }}/jena-fuseki:latest
+            ghcr.io/${{ steps.image.outputs.owner }}/jena-fuseki:${{ steps.image.outputs.short_sha }}
