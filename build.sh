@@ -1,9 +1,13 @@
-#!/bin/bash 
+#!/bin/bash
 
-# https://semanticlab.net/virtualization/Cross-Platform_Docker_HOWTO/
+set -e
 
-docker-machine create fuseki
-eval "$(docker-machine env fuseki)"
+IMAGE="${IMAGE:-albert/fuseki:current}"
+PLATFORMS="${PLATFORMS:-linux/amd64,linux/arm64}"
 
-docker build --rm --tag albert/fuseki:current jena-fuseki
+docker buildx build \
+	--platform "$PLATFORMS" \
+	--tag "$IMAGE" \
+	--push \
+	jena-fuseki
 
